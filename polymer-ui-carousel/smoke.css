@@ -15,7 +15,7 @@ polymer-ui-animated-pages > div {
   align-items: center;
   justify-content: center;
   font-size: 100px;
-  color: white;
+  color: black;
 }
 
 /* Style the different slides */
