@@ -43,7 +43,7 @@ polymer-ui-carousel .btn-prev, polymer-ui-carousel .btn-next {
 }
 
 polymer-ui-carousel button:focus {
-  outline: 0;
+  /*outline: 0;*/
 }
 
 p {

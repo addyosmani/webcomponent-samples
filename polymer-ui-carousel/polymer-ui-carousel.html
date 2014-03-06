@@ -62,7 +62,7 @@
     </template>
   </polymer-element>
 
-  <polymer-element name="polymer-ui-carousel" extends="polymer-ui-animated-pages" attributes="labels">
+  <polymer-element name="polymer-ui-carousel" extends="polymer-ui-animated-pages" attributes="labels" tabIndex="0">
     <template>
       <style>
         polymer-ui-toolbar {
@@ -132,12 +132,12 @@
 
       </polymer-ui-animated-pages>
 
-      <polymer-ui-toolbar aria-label="carousel buttons">
-        <button aria-label="previous" class="carousel-button btn btn-prev {{ {disabled: page == '0'} | tokenList }}" on-tap="{{rewindAction}}" ></button>
-        <button aria-label="next" class="carousel-button btn btn-next {{ {disabled: page == itemsCount-1} | tokenList }}" on-tap="{{forwardAction}}"></button>
+      <polymer-ui-toolbar aria-label="carousel buttons" on-keypress="{{keypressHandler}}" tabIndex="1">
+        <button aria-label="previous" class="carousel-button btn btn-prev {{ {disabled: page == '0'} | tokenList }}" on-tap="{{rewindAction}}" tabIndex="2"></button>
+        <button aria-label="next" class="carousel-button btn btn-next {{ {disabled: page == itemsCount-1} | tokenList }}" on-tap="{{forwardAction}}" tabIndex="3"></button>
         <div id="controls" aria-controls="carousel">
           <template repeat="{{ item in itemList }}">
-            <button aria-label="item-{{item.index}}" on-tap="{{gotoPage}}" data-index="{{item.index}}" class="{{ {selected: item.index == page} | tokenList }}">{{ labels? item.value : '&#8226;'}} </button>
+            <button aria-label="item-{{item.index}}" tabIndex="{{4 + item.index}}" on-tap="{{gotoPage}}" data-index="{{item.index}}" class="{{ {selected: item.index == page} | tokenList }}">{{ labels? item.value : '&#8226;'}} </button>
           </template>
         </div>
       </polymer-ui-toolbar>
@@ -252,6 +252,19 @@
         },
         animationEndAction: function() {
           // console.log('animationEnd');
+        },
+        keypressHandler: function(event, detail, sender) {
+          if(event.keyCode == 13){
+           if(event.target.tabIndex == 2){
+            //prev
+            this.rewindAction();
+           } else if(event.target.tabIndex == 3){
+            //next
+            this.forwardAction();
+           } else {
+            this.page = parseInt(event.target.attributes['data-index'].value,10);
+           }
+          } //ENTER
         }
       });
     </script>
