@@ -102,12 +102,10 @@
 
         polymer-ui-toolbar .btn-prev {
           left: 0;
-          background: url(assets/arrow-back.png);
         }
 
         polymer-ui-toolbar .btn-next {
           left: 40px;
-          background: url(assets/arrow-forward.png);
         }
 
         #controls {
@@ -133,9 +131,12 @@
       </polymer-ui-animated-pages>
 
       <polymer-ui-toolbar aria-label="carousel buttons" on-keypress="{{keypressHandler}}" tabIndex="1">
-        <button alt="Previous Slide" aria-label="previous" class="carousel-button btn btn-prev {{ {disabled: page == '0'} | tokenList }}" on-tap="{{rewindAction}}" tabIndex="2"></button>
-        <button alt="Next Slide" aria-label="next" class="carousel-button btn btn-next {{ {disabled: page == itemsCount-1} | tokenList }}" on-tap="{{forwardAction}}" tabIndex="3"></button>
-        <div id="controls" aria-controls="carousel">
+
+      <input type="image" src="assets/arrow-back.png" alt="Previous Slide" aria-label="previous" class="carousel-button btn btn-prev {{ {disabled: page == '0'} | tokenList }}" on-tap="{{rewindAction}}" tabIndex="2"/>
+
+      <input type="image" src="assets/arrow-forward.png" alt="Next Slide" aria-label="next" class="carousel-button btn btn-next {{ {disabled: page == itemsCount-1} | tokenList }}" on-tap="{{forwardAction}}" tabIndex="3"/>
+
+        <div id="controls" aria-controls="pages">
           <template repeat="{{ item in itemList }}">
             <button aria-label="item-{{item.index}}" tabIndex="{{4 + item.index}}" alt="{{item.index}}" on-tap="{{gotoPage}}" data-index="{{item.index}}" class="{{ {selected: item.index == page} | tokenList }}">{{ labels? item.value : '&#8226;'}} </button>
           </template>
