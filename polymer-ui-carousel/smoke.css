@@ -1,0 +1,86 @@
+/* Demo specific styling for our element */
+
+polymer-ui-carousel {
+  display: inline-block;
+  height: 450px;
+  width: 800px;
+  background: #4285f4;
+  margin: 5px;
+  clear:both;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+
+polymer-ui-animated-pages > div {
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 100px;
+  color: white;
+}
+
+/* Style the different slides */
+
+polymer-ui-animated-pages > div:nth-child(2) {
+  background: #5bc0de; 
+}
+
+polymer-ui-animated-pages > div:nth-child(3) {
+  background: #fbb450;
+}
+
+polymer-ui-animated-pages > div:nth-child(4) {
+  background: #bd362f;
+}
+
+polymer-ui-animated-pages > div:nth-child(5) {
+  background: #2f96b4;
+}
+
+/* Disable focus */
+
+polymer-ui-carousel .btn-prev, polymer-ui-carousel .btn-next {
+  background-color: transparent;
+}
+
+polymer-ui-carousel button:focus {
+  outline: 0;
+}
+
+p {
+  margin: 10px;
+  display: block;
+}
+
+/* Responsive styling */
+
+@media only screen and (min-width: 900px) {
+    /* tablets and desktop */
+    polymer-ui-carousel {
+      width: 800px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 899px) {
+    /* tablets and desktop */
+    polymer-ui-carousel {
+      width: 700px;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    /* phones */
+    polymer-ui-carousel {
+      width: 400px;
+    }          
+}
+
+@media only screen and (max-width: 350px) {
+    /* phones */
+    polymer-ui-carousel {
+      width: 300px;
+    }   
+
+    polymer-ui-carousel ^^ #controls {
+      display: none;
+    }         
+}
