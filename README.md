@@ -1,4 +1,4 @@
-polymer-a11y-experiments
+webcomponent-samples
 ========================
 
-Experiments
+Samples and experiments

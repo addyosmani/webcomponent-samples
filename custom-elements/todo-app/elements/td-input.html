@@ -1,0 +1,40 @@
+<script>
+	(function() {
+		var ENTER_KEY = 13;
+		var ESC_KEY = 27;
+
+		// element prototype
+		//
+		var proto = Object.create(HTMLInputElement.prototype, {
+			createdCallback: {
+				value: function () {
+					console.log('input created!')
+					this.addEventListener('keypress', this.onKeyPress.bind(this));
+					this.addEventListener('keyup', this.onKeyUp.bind(this));
+				}
+			},
+			onKeyPress: {
+				 value: function (e) {
+					if (e.keyCode === ENTER_KEY) {
+						this.dispatchEvent(new Event('td-input-commit'));
+					}
+				}
+			},
+			onKeyUp: {
+				value: function (e) {
+					if (e.keyCode === ESC_KEY) {
+						this.dispatchEvent(new Event('td-input-cancel'));
+					}
+				}
+			} 
+		});
+
+		// register element
+		//
+		document.registerElement('td-input', {
+			extends: 'input',
+		  	prototype: proto
+		});
+	})();
+</script>
+

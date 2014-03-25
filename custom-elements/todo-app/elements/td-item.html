@@ -1,0 +1,117 @@
+<link rel="import" href="td-input.html">
+<link rel="stylesheet" href="td-item.css">
+<script>
+	(function() {
+		// var  me = (document.currentScript || document._currentScript).parentElement,
+			// template = me.querySelector('template');
+		
+		// Element Prototype
+		//
+		var proto = Object.create(HTMLElement.prototype, {
+			createdCallback: {
+				value: function () {
+					// create inner elements
+					this.$.view = document.createElement('div');
+					this.$.checked = document.createElement('input');
+					this.$.label = document.createElement('label');
+					this.$.destroy = document.createElement('button');
+					this.$.edit = document.createElement('input');
+					// attributes
+					this.$.view.classList.add('view');
+					this.$.checked.type = 'checkbox';
+					this.$.checked.classList.add('toggle')
+					this.$.destroy.classList.add('destroy');
+					this.$.edit.setAttribute('is', 'td-input');
+					this.$.edit.classList.add('edit');
+					// events
+					this.$.view.addEventListener('dblclick', this.edit.bind(this));
+					this.$.checked.addEventListener('click', this.completed.bind(this));
+					this.$.destroy.addEventListener('click', this.destroy.bind(this));
+					this.$.edit.addEventListener('td-input-commit', this.commit.bind(this));
+					this.$.edit.addEventListener('td-input-cancel', this.cancel.bind(this));
+					// appends
+					this.$.view.appendChild(this.$.checked);
+					this.$.view.appendChild(this.$.label);
+					this.$.view.appendChild(this.$.destroy);
+					this.appendChild(this.$.view);
+					this.appendChild(this.$.edit);
+					// default attributes
+					this.editing = false;
+
+					//
+					// From a template...
+					//
+					// var content = template.content.cloneNode(true);
+					// this.appendChild(content);
+				}
+			},
+			$: {
+				value: {}
+			},
+			//
+			// Attributes
+			//
+			editing: {
+				get: function() { return this._editing; },
+				set: function(value) { 
+					this._editing = value; 
+					this.$.edit.hidden = !this.editing;
+					this.$.view.hidden = this.editing;
+				},
+			},
+			item: {
+				get: function () { return this._item; },
+				set: function (item) {
+					this._item = item;
+					// TODO observe the item properties....
+					this.$.view.classList.toggle('completed', item.completed);
+					this.$.label.innerText = item.title;
+					this.$.edit.checked = item.completed;
+				}
+			},
+			//
+			// Methods
+			//
+			edit: {
+				value: function () {
+					this.editing = true;
+					this.$.edit.value = this.item.title;
+					this.$.edit.focus();
+				}
+			},
+			commit: {
+				value: function () {
+					if (this.editing) {
+						this.editing = false;
+						this.item.title = this.$.edit.value.trim();
+						if (this.item.title === '') {
+							this.destroy();
+						}
+						this.dispatchEvent(new Event('td-item-changed'));
+					}
+				}
+			},
+			cancel: {
+				value: function () {
+					this.editing = false;
+				}
+			},
+			completed: {
+				value: function () {
+					this.dispatchEvent(new Event('td-item-changed'));
+				}
+			},
+			destroy: {
+				value: function () {
+					this.dispatchEvent(new CustomEvent('td-destroy-item', this.item));
+				}
+			}
+		});
+
+		// register element
+		//
+		document.registerElement('td-item', {
+		  	prototype: proto
+		});
+	})();
+</script>

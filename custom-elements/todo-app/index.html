@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Vanilla Web Components • TodoMVC</title>
+		<link rel="stylesheet" href="app/app.css">
+		<!--<link rel="import" href="lib-elements/polymer-localstorage.html">-->
+		<!--<link rel="import" href="elements/td-model.html">-->
+		<!-- <link rel="import" href="elements/td-todos.html"> -->
+		<link rel="import" href="elements/td-item.html">
+		<!-- <link rel="import" href="elements/td-input.html"> -->
+	</head>
+	<body>
+		<section id="todoapp">
+			<header id="header">
+				<h1>todos</h1>
+			</header>
+			<!--<polymer-localstorage id="storage" name="todos-polymer"></polymer-localstorage>-->
+			<!--<td-model id="model" storageId="storage"></td-model>-->
+			<!-- <td-todos modelId="model"></td-todos> -->
+			<input is="td-input" id="new-todo" />
+			<div id="todos"> <!-- TODO create <todos> component -->
+
+			</div>
+			
+			<!-- <input is="td-input" id="new-todo" placeholder="What needs to be done?" autofocus on-td-input-commit="addTodoAction" on-td-input-cancel="cancelAddTodoAction"> -->
+		</section>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<!--<p>Part of <a href="http://todomvc.com">TodoMVC</a></p>-->
+		</footer>
+		<!-- <script src="bower_components/todomvc-common/base.js"></script> -->
+		<!-- <script src="bower_components/polymer/polymer.min.js"></script> -->
+		<script src="../../../bower_components/platform/platform.js"></script>
+		<script src="index.js"></script>
+		<script>
+			// window.addEventListener('HTMLImportsLoaded', function(e) {
+			// 	// http://www.html5rocks.com/en/tutorials/webcomponents/imports/#include-templates
+			// 	//
+			// 	var links = document.querySelectorAll('link[rel="import"]'),
+			// 		template,
+			// 		clone,
+			// 		elements,
+			// 		element_name;
+
+			// 	for (var i=0; i<links.length; i++) {
+			// 	    template = links[i].import.querySelector('template');
+			// 	    if (template) {					    
+			// 		    element_name = template.attributes['for-element'].value;
+			// 		    elements = document.querySelectorAll(element_name);
+			// 		    for (j=0; j<elements.length; j++) {
+			// 		    	debugger;
+			// 		    	clone = document.importNode(template.content, true);
+			// 		    	elements[j].appendChild(clone);
+			// 		    }
+					    
+			// 		}
+			// 	}
+			// });
+		</script>
+	</body>
+</html>

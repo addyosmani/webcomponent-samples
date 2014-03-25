@@ -1,0 +1,18 @@
+<element name="x-foo">
+	<script>
+	    ({
+	      readyCallback: function () {
+	        console.log('readyCallback');
+	      },
+	      createdCallback: function () {
+	        console.log('createdCallback');
+	      },
+	      insertedCallback: function () {
+			console.log('insertedCallback');
+	      },
+	      foo: function () {
+	      	console.log('foo() called');
+	      }
+	    });
+    </script>
+</element>

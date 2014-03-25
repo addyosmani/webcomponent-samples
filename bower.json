@@ -1,0 +1,23 @@
+{
+  "name": "webcomponent-samples",
+  "version": "0.0.0",
+  "homepage": "https://github.com/addyosmani/webcomponent-samples",
+  "authors": [
+    "Addy Osmani <addyosmani@gmail.com>"
+  ],
+  "keywords": [
+    "webcomponents"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "~0.2.1",
+    "es6-module-loader": "~0.5.1",
+    "lodash": "~2.4.1"
+  }
+}
