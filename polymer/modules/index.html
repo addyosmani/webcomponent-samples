@@ -90,49 +90,26 @@
 
   <h2>Initializing a Polymer element once dynamic dependencies are loaded</h2>
 
-  <p>In order to initialize elements only *after* dynamic script dependencies are loaded, we can define a <code>require</code> helper for Polymer (using the polyfilled <code>System.import</code>) as follows:</p>
-  <pre>
-  Polymer.require = function(tag, deps, func) {
-    return System.import(deps).then(function() {
-      return new Promise(function(resolve) {
-        resolve(Polymer(tag, func.apply(this, arguments)));
-      });
-    });
-  };
-  </pre>
-
-  <p>We can then use this in our <code>&lt;foo-barbaz&gt;</code> Polymer element to dynamically load Lodash and then return the object defining the methods for our element. If this works, foo2 should be happy:</p>
+  <p>We can also use <code>System.import</code> in a <code>&lt;foo-barbaz&gt;</code> element to dynamically load Lodash and then register our Polymer element once resolved. If this works, foo2 should be happy:</p>
   
   <foo-barbaz></foo-barbaz>
 
   <div id="foo2"></div>
 
   <p>The code for this is defined as follows:
+
   <pre>
-  &lt;polymer-element name=&quot;foo-barbaz&quot;&gt;
-    &lt;script&gt; 
-      Polymer.require( 'foo-barbaz', 'lodash.min', function() {
-        return {
-          ready: function() {
-            var foo = document.getElementById(&quot;foo2&quot;);
-            var msg = 'the foo2 has joy';
-            foo.innerHTML = msg + '. Does it _.contains() foo?..' + _.contains(msg, 'foo');
-          }
-        };
+    System.import('lodash.min').then(function() {
+      Polymer('foo-barbaz', {
+        ready: function() {
+          var foo = document.getElementById("foo2");
+          var msg = 'the foo2 has joy';
+          foo.innerHTML = msg + '. Does it _.contains() foo2?..' + _.contains(msg, 'foo2');
+        }
       });
-    &lt;/script&gt;
-  &lt;/polymer-element&gt;  
+    });
   </pre>
 
-  <script>
-    Polymer.require = function(tag, deps, func) {
-      return System.import(deps).then(function() {
-        return new Promise(function(resolve) {
-          resolve(Polymer(tag, func.apply(this, arguments)));
-        });
-      });
-    };
-  </script>
 
 </body>
 </html>

@@ -1,15 +1,14 @@
 <polymer-element name="foo-barbaz">
   <script> 
     var base = '../../bower_components/';
-    // tagname, script reference, callback
-    Polymer.require('foo-barbaz', base + 'lodash/dist/lodash.min', function() {
-      return {
+    System.import(base + 'lodash/dist/lodash.min').then(function() {
+      Polymer('foo-barbaz', {
         ready: function() {
           var foo = document.getElementById("foo2");
           var msg = 'the foo2 has joy';
           foo.innerHTML = msg + '. Does it _.contains() foo2?..' + _.contains(msg, 'foo2');
         }
-      };
+      });
     });
   </script>
 </polymer-element>
