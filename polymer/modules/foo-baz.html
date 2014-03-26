@@ -1,0 +1,15 @@
+<polymer-element name="foo-baz">
+<template>
+  <button on-click="{{importElement}}">Import polymer-cat</button>
+</template>
+  <script> 
+    Polymer('foo-baz', {
+      importElement: function(){
+        Polymer.import(['polymer-cat.html'], function() {
+              //...
+        });
+      }
+    });
+  </script>
+</polymer-element>
+
