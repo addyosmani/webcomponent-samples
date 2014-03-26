@@ -92,14 +92,14 @@
 
   <p>In order to initialize elements only *after* dynamic script dependencies are loaded, we can define a <code>require</code> helper for Polymer (using the polyfilled <code>System.import</code>) as follows:</p>
   <pre>
-  Polymer.require = function( tag,  deps,  func, err) {
-    System.import( deps ).then( function() {
-      Polymer( tag, func.apply(this, arguments));
-    }, err);
-  };  
+  Polymer.require = function(tag, deps, func) {
+    return System.import(deps).then(function() {
+      return new Promise(function(resolve) {
+        resolve(Polymer(tag, func.apply(this, arguments)));
+      });
+    });
+  };
   </pre>
-
-  <small>Alternatively, we could return a promise here so <code>Polymer.require('foo', [...]).then(function ok(){}, function error(){});</code> would be possible.</small>
 
   <p>We can then use this in our <code>&lt;foo-barbaz&gt;</code> Polymer element to dynamically load Lodash and then return the object defining the methods for our element. If this works, foo2 should be happy:</p>
   
@@ -126,8 +126,10 @@
 
   <script>
     Polymer.require = function(tag, deps, func) {
-      System.import(deps).then(function() {
-        Polymer(tag, func.apply(this, arguments));
+      return System.import(deps).then(function() {
+        return new Promise(function(resolve) {
+          resolve(Polymer(tag, func.apply(this, arguments)));
+        });
       });
     };
   </script>
