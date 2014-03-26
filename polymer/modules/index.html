@@ -20,13 +20,16 @@
 </head>
 <body>
   <h1>Dynamically Loading A Scoped Script (Lodash) </br> Into A Polymer Element Using ES6 Module Loader</h1>
-  <h2>Imagine we have a <code>div</code> and a Polymer element <code>foo-bar</code></h2>
 
-  <h3>&lt;div id="foo"&gt; is an element which has no joy, unless we dynamically load Lodash successfully: </h3>
+  <p>Imagine we have a <code>div</code> and a Polymer element <code>foo-bar</code></p>
+
+  <p>&lt;div id="foo"&gt; is an element which has no joy, unless we dynamically load Lodash successfully: </p>
+
   <div id="foo">the foo has no joy.</div>
   
-  <h3>&lt;foo-bar&gt; injects the updated text into "foo" and uses output from the Lodash <code>_.contains()</code> utility.</h3>
-  <foo-bar></foo-bar>
+  
+  <p>When you <foo-bar></foo-bar>, &lt;foo-bar&gt; injects the updated text into "foo" and uses output from the Lodash <code>_.contains()</code> utility.</p>
+  
 
   <h2>How does this work?</h2>
   <h3>We define a <code>require</code> helper for Polymer (using the polyfilled <code>System.import</code>) as follows:</h3>
@@ -39,6 +42,19 @@
   </pre>
 
   <h3>We can then use this in our <code>foo-bar</code> Polymer element to dynamically load modules:</h3>
+  <pre>
+    Polymer('foo-bar', {
+      importModule: function(){
+        Polymer.require('foo-bar', 'lodash.min', function() {
+              var foo = document.getElementById("foo");
+              var msg = 'the foo has joy';
+              foo.innerHTML = msg + '. Does it _.contains() foo?..' + _.contains(msg, 'foo');
+        });
+      }
+    });   
+  </pre>
+
+  <h3>If we wanted to automatically load Lodash without user-interaction, we could do something like:</h3>
   <pre>
     Polymer.require('foo-bar', 'lodash.min', function() {
       return {

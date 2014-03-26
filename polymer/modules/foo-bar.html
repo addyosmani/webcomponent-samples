@@ -1,14 +1,18 @@
 <polymer-element name="foo-bar">
+<template>
+  Click the <button on-click="{{importModule}}">Import Lodash</button> button.
+</template>
   <script> 
-    var base = '../../bower_components/';
-    Polymer.require('foo-bar', base + 'lodash/dist/lodash.min', function() {
-      return {
-        ready: function() {
-          var foo = document.getElementById("foo");
-          var msg = 'the foo has joy';
-          foo.innerHTML = msg + '. Does it _.contains() foo?..' + _.contains(msg, 'foo');
-        }
-      };
+    Polymer('foo-bar', {
+      importModule: function(){
+        var base = '../../bower_components/';
+        Polymer.require('foo-bar', base + 'lodash/dist/lodash.min', function() {
+              var foo = document.getElementById("foo");
+              var msg = 'the foo has joy';
+              foo.innerHTML = msg + '. Does it _.contains() foo?..' + _.contains(msg, 'foo');
+        });
+      }
     });
   </script>
 </polymer-element>
+
