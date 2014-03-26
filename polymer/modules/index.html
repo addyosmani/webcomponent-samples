@@ -16,6 +16,7 @@
   <link rel="import" href="foo-bar.html">
   <link rel="import" href="foo-baz.html">
   <link rel="import" href="foo-barbaz.html">
+  <link rel="import" href="foo-bax.html">
 
   <!-- Import base theme for the page -->
   <link rel="import" href="../../assets/base.html">
@@ -40,15 +41,27 @@
   Here we are using <code>Polymer.import</code> to import our element as follows:
 
   <pre>
-  Polymer('foo-baz', {
-    importElement: function(){
-      Polymer.import(['polymer-cat.html'], function() {
-            // called when our import is fully loaded
-            // including any assets like CSS.
-      });
-    }
+  Polymer.import(['polymer-cat.html'], function() {
+        // called when our import is fully loaded
+        // including any assets like CSS.
   });
   </pre>
+
+  <p>We can similarly <code>Polymer.import</code> a &lt;polymer-ui-tabs&gt; element, which has many of it's own HTML import dependencies. The tabs will fall back to rendering content as part of a <code>HTMLUnknownElement</code> until we import the element by clicking on the button below:</p>
+
+  <foo-bax></foo-bax>
+
+  <p>&nbsp;</p>
+
+  <polymer-ui-tabs selected="0">
+    <span>One</span>
+    <span>Two</span>
+    <span>Three</span>
+    <span>Four</span>
+    <span>Five</span>
+  </polymer-ui-tabs>
+
+  <p>&nbsp;</p>
 
   <h2>Dynamically loading ES6 Modules / Scripts using  ES6 Module Loader</h2>
 

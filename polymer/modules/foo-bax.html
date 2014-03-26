@@ -1,0 +1,14 @@
+<polymer-element name="foo-bax">
+<template>
+  <button on-click="{{importElement}}">Import polymer-ui-tabs</button>
+</template>
+  <script> 
+    Polymer('foo-bax', {
+      importElement: function(){
+        Polymer.import(['../../bower_components/polymer-ui-tabs/polymer-ui-tabs.html'], function() {
+              //...
+        });
+      }
+    });
+  </script>
+</polymer-element>
