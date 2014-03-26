@@ -41,7 +41,7 @@
   Here we are using <code>Polymer.import</code> to import our element as follows:
 
   <pre>
-  Polymer.import(['polymer-cat.html'], function() {
+  Polymer.import( ['polymer-cat.html'], function() {
         // called when our import is fully loaded
         // including any assets like CSS.
   });
@@ -76,7 +76,7 @@
   <p>Here we're just using the <code>System.import</code> method from our ES6 Module Loader to import the script as follows:</p>
 
   <pre>
-  System.import(base + 'lodash/dist/lodash.min').then(function(){
+  System.import( base + 'lodash/dist/lodash.min').then( function() {
         var foo = document.getElementById("foo");
         var msg = 'the foo has joy';
         foo.innerHTML = msg + '. Does it _.contains() foo?..' + _.contains(msg, 'foo');
@@ -87,9 +87,9 @@
 
   <p>In order to initialize elements only *after* dynamic script dependencies are loaded, we can define a <code>require</code> helper for Polymer (using the polyfilled <code>System.import</code>) as follows:</p>
   <pre>
-  Polymer.require = function(tag, deps, func) {
-    System.import(deps).then(function() {
-      Polymer(tag, func.apply(this, arguments));
+  Polymer.require = function( tag,  deps,  func) {
+    System.import( deps ).then( function() {
+      Polymer( tag, func.apply(this, arguments));
     });
   };  
   </pre>
@@ -104,7 +104,7 @@
   <pre>
   &lt;polymer-element name=&quot;foo-barbaz&quot;&gt;
     &lt;script&gt; 
-      Polymer.require('foo-barbaz', 'lodash.min', function() {
+      Polymer.require( 'foo-barbaz', 'lodash.min', function() {
         return {
           ready: function() {
             var foo = document.getElementById(&quot;foo2&quot;);
