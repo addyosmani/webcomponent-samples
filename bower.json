@@ -18,6 +18,7 @@
   "dependencies": {
     "polymer": "~0.2.1",
     "es6-module-loader": "~0.5.1",
-    "lodash": "~2.4.1"
+    "lodash": "~2.4.1",
+    "polymer-ui-tabs": "Polymer/polymer-ui-tabs#~0.2.1"
   }
 }
