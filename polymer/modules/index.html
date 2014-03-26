@@ -41,11 +41,14 @@
   Here we are using <code>Polymer.import</code> to import our element as follows:
 
   <pre>
+  // Signature: Polymer.import(urls, callback)
   Polymer.import( ['polymer-cat.html'], function() {
         // called when our import is fully loaded
         // including any assets like CSS.
   });
   </pre>
+
+  <p>This loads import dynamically and asynchronously. The callback is called when the imports have loaded and any associated polymer-elements have upgraded.</p>
 
   <p>We can similarly <code>Polymer.import</code> a &lt;polymer-ui-tabs&gt; element, which has many of it's own HTML import dependencies. The tabs will fall back to rendering content as part of a <code>HTMLUnknownElement</code> until we import the element by clicking on the button below:</p>
 
@@ -62,6 +65,8 @@
   </polymer-ui-tabs>
 
   <p>&nbsp;</p>
+
+  <p><strong>Note:</strong> Should you need it, a helper mechanism for loading imports is available in the form of <code>HTMLImports.whenImportsReady(callback)</code>. This is called when the imports in the document at call time have completed loading. </p>
 
   <h2>Dynamically loading ES6 Modules / Scripts using  ES6 Module Loader</h2>
 
