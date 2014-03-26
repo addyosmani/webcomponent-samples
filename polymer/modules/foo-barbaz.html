@@ -1,12 +1,12 @@
 <polymer-element name="foo-barbaz">
   <script> 
-    var base = '../../bower_components/';
-    System.import(base + 'lodash/dist/lodash.min').then(function() {
+    System.import('utils').then(function(module) {
       Polymer('foo-barbaz', {
         ready: function() {
           var foo = document.getElementById("foo2");
           var msg = 'the foo2 has joy';
-          foo.innerHTML = msg + '. Does it _.contains() foo2?..' + _.contains(msg, 'foo2');
+          //foo.innerHTML = msg + '. Does it _.contains() foo2?..' + _.contains(msg, 'foo2');
+          foo.innerHTML = msg + '. Does it contains() foo2?..' + module.contains(msg, 'foo2');
         }
       });
     });

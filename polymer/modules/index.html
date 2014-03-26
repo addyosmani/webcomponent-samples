@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>Dynamically Loading Elements And Modules Into Polymer</title>
+  <title>Dynamically Loading Elements And Modules In Polymer</title>
   <!-- Polyfill Web Components -->
   <script src="../../bower_components/platform/platform.js"></script>
 
@@ -26,7 +26,9 @@
   </style>
 </head>
 <body>
-  <h1>Dynamically Loading Elements &amp; Modules Into Polymer</h1>
+  <h1>Dynamically Loading Elements &amp; ES6 Modules In Polymer</h1>
+
+  <p>These examples use <a href="http://polymer-project.org">Polymer</a> and the <a href="https://github.com/ModuleLoader/es6-module-loader">ES6 Module Loader</a> polyfill.</p>
 
   <h2>Dynamically importing Polymer elements</h2>
 
@@ -40,13 +42,13 @@
 
   Here we are using <code>Polymer.import</code> to import our element as follows:
 
-  <pre>
-  // Signature: Polymer.import(urls, callback)
-  Polymer.import( ['polymer-cat.html'], function() {
-        // called when our import is fully loaded
-        // including any assets like CSS.
-  });
-  </pre>
+<pre>
+// Signature: Polymer.import(urls, callback)
+Polymer.import( ['polymer-cat.html'], function() {
+      // called when our import is fully loaded
+      // including any assets like CSS.
+});
+</pre>
 
   <p>This loads import dynamically and asynchronously. The callback is called when the imports have loaded and any associated polymer-elements have upgraded.</p>
 
@@ -68,29 +70,29 @@
 
   <p><strong>Note:</strong> Should you need it, a helper mechanism for loading imports is available in the form of <code>HTMLImports.whenImportsReady(callback)</code>. This is called when the imports in the document at call time have completed loading. </p>
 
-  <h2>Dynamically loading ES6 Modules / Scripts using  ES6 Module Loader</h2>
+  <h2>Dynamically loading ES6 Modules into Polymer using ES6 Module Loader</h2>
 
-  <p>Imagine we have <code>&lt;div id="foo"&gt;</code> and a Polymer element <code>&lt;foo-bar&gt;</code>. <code>&lt;div id="foo"&gt;</code> has no joy, unless we dynamically load Lodash successfully: </p>
+  <p>Imagine we have <code>&lt;div id="foo"&gt;</code> and a Polymer element <code>&lt;foo-bar&gt;</code>. <code>&lt;div id="foo"&gt;</code> has no joy, unless we dynamically load "utils.js" successfully: </p>
 
   <div id="foo">the foo has no joy.</div>
   
-  <p>When you click the <foo-bar></foo-bar> button, <code>&lt;foo-bar&gt;</code> dynamically loads Lodash and injects the updated text into "foo" with help from the <code>_.contains()</code> utility.</p>
+  <p>When you click the <foo-bar></foo-bar> button, <code>&lt;foo-bar&gt;</code> dynamically loads "utils.js" and injects the updated text into "foo" with help from our exported <code>contains()</code> function.</p>
   
 
   <h2>How does this work?</h2>
-  <p>Here we're just using the <code>System.import</code> method from our ES6 Module Loader to import the script as follows:</p>
+  <p>Here we're just using the <code>System.import</code> method from our ES6 Module Loader to import the "utils" module as follows:</p>
 
-  <pre>
-  System.import( base + 'lodash/dist/lodash.min').then( function() {
-      var foo = document.getElementById("foo");
-      var msg = 'the foo has joy';
-      foo.innerHTML = msg + '. Does it _.contains() foo?..' + _.contains(msg, 'foo');
-  });
-  </pre>
+<pre>
+System.import('utils').then( function() {
+    var foo = document.getElementById("foo");
+    var msg = 'the foo has joy';
+    foo.innerHTML = msg + '. Does it contains() foo?..' + module.contains(msg, 'foo');
+});
+</pre>
 
   <h2>Initializing a Polymer element once dynamic dependencies are loaded</h2>
 
-  <p>We can also use <code>System.import</code> in a <code>&lt;foo-barbaz&gt;</code> element to dynamically load Lodash and then register our Polymer element once resolved. If this works, foo2 should be happy:</p>
+  <p>We can also use <code>System.import</code> in a <code>&lt;foo-barbaz&gt;</code> element to dynamically load "utils.js" and then register our Polymer element once resolved. If this works, foo2 should be happy:</p>
   
   <foo-barbaz></foo-barbaz>
 
@@ -98,18 +100,27 @@
 
   <p>The code for this is defined as follows:
 
-  <pre>
-    System.import('lodash.min').then(function() {
-      Polymer('foo-barbaz', {
-        ready: function() {
-          var foo = document.getElementById("foo2");
-          var msg = 'the foo2 has joy';
-          foo.innerHTML = msg + '. Does it _.contains() foo2?..' + _.contains(msg, 'foo2');
-        }
-      });
-    });
-  </pre>
+<pre>
+System.import('utils').then(function(module) {
+  Polymer('foo-barbaz', {
+    ready: function() {
+      var foo = document.getElementById("foo2");
+      var msg = 'the foo2 has joy';
+      foo.innerHTML = msg + '. Does it _.contains() foo2?..' + module.contains(msg, 'foo2');
+    }
+  });
+});
+</pre>
 
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+  ga('create', 'UA-49401593-1', 'addyosmani.github.io');
+  ga('send', 'pageview');
+
+</script>
 </body>
 </html>

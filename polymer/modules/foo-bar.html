@@ -5,11 +5,10 @@
   <script> 
     Polymer('foo-bar', {
       importModule: function(){
-        var base = '../../bower_components/';
-        System.import(base + 'lodash/dist/lodash.min').then(function(){
+        System.import('utils').then(function(module){
               var foo = document.getElementById("foo");
               var msg = 'the foo has joy';
-              foo.innerHTML = msg + '. Does it _.contains() foo?..' + _.contains(msg, 'foo');
+              foo.innerHTML = msg + '. Does it contains() foo?..' + module.contains(msg, 'foo');
         });
       }
     });
