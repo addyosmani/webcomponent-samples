@@ -83,7 +83,7 @@ Polymer.import( ['polymer-cat.html'], function() {
   <p>Here we're just using the <code>System.import</code> method from our ES6 Module Loader to import the "utils" module as follows:</p>
 
 <pre>
-System.import('utils').then( function() {
+System.import('utils').then(function(module) {
     var foo = document.getElementById("foo");
     var msg = 'the foo has joy';
     foo.innerHTML = msg + '. Does it contains() foo?..' + module.contains(msg, 'foo');
