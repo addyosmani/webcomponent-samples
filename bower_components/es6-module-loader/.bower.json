@@ -1,9 +1,12 @@
 {
   "name": "es6-module-loader",
-  "version": "0.5.1",
+  "version": "0.5.4",
   "description": "An ES6 Module Loader polyfill based on the latest spec.",
   "homepage": "https://github.com/ModuleLoader/es6-module-loader",
   "main": "dist/es6-module-loader.js",
+  "dependencies": {
+    "traceur": "0.0.32"
+  },
   "keywords": [
     "es6",
     "harmony",
@@ -26,14 +29,13 @@
       "type": "MIT"
     }
   ],
-  "_release": "0.5.1",
+  "_release": "0.5.4",
   "_resolution": {
     "type": "version",
-    "tag": "v0.5.1",
-    "commit": "42354d106f6132053a1b5a634fbb400bdfea71f9"
+    "tag": "v0.5.4",
+    "commit": "f9510d43c1eec26fb61e77ac417dd5c90b68bf7c"
   },
   "_source": "git://github.com/ModuleLoader/es6-module-loader.git",
   "_target": "~0.5.1",
-  "_originalSource": "es6-module-loader",
-  "_direct": true
+  "_originalSource": "es6-module-loader"
 }

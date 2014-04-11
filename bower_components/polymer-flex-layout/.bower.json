@@ -2,17 +2,17 @@
   "name": "polymer-flex-layout",
   "private": true,
   "dependencies": {
-    "polymer": "Polymer/polymer#0.2.1"
+    "polymer": "Polymer/polymer#0.2.2"
   },
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "https://github.com/Polymer/polymer-flex-layout",
-  "_release": "0.2.1",
+  "_release": "0.2.2",
   "_resolution": {
     "type": "version",
-    "tag": "0.2.1",
-    "commit": "1568eb4afbfe18ed98f66e12186677037a5d3368"
+    "tag": "0.2.2",
+    "commit": "22601079bafc1c9844667744bf248ba8247bbe41"
   },
   "_source": "git://github.com/Polymer/polymer-flex-layout.git",
-  "_target": "0.2.1",
+  "_target": "0.2.2",
   "_originalSource": "Polymer/polymer-flex-layout"
 }
