@@ -1,0 +1,37 @@
+﻿:host {
+
+  /** Force layout boundary **/
+  display: block;
+  overflow: hidden;
+  box-sizing: border-box;
+
+  /*
+  Fundamentally, translateZ(0) and other hacks indirectly cause layer 
+  creation but lack the context about why layer is needed, and what 
+  the user intends to do with it. With will-animate, we have more intent 
+  from the content author, which lets us do more "right" things --- for 
+  instance, width animation gives us a good indication that the content 
+  will change every frame, which can be a strong signal to not retain the 
+  texture for the layer after it is created.
+  */
+ 
+   /*will-animate: transform; */
+ 
+  /** Hint a region is likely to change **/
+  /** Spec: http://tabatkins.github.io/specs/css-will-change/ **/
+  /** Blink: https://groups.google.com/a/chromium.org/forum/#!topic/blink-dev/M62y2nKZ-gE **/
+  /** FF support: https://bug940842.bugzilla.mozilla.org/attachment.cgi?id=8367378 **/
+  will-change: contents;
+
+  /** Promote to a dedicated layer - used until will-change more broadly available **/
+  -webkit-transform: translatez(0);
+  -moz-transform: translatez(0);
+  -ms-transform: translatez(0);
+  -o-transform: translatez(0);
+  transform: translatez(0);
+
+  /** Base styling **/
+  width: 300px;
+  height: 300px;
+  background: yellow;
+}

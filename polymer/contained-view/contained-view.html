@@ -1,0 +1,46 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<!--
+Element providing a contained view.
+
+##### Example
+
+    <contained-view></contained-view>
+
+@class contained-view
+@blurb Element providing a contained view.
+@status alpha
+@url github.io
+-->
+<polymer-element name="contained-view" attributes="notitle">
+
+  <template>
+
+    <link href="contained-view.css" rel="stylesheet" />
+
+    <content></content>
+
+  </template>
+
+  <script>
+
+    Polymer({
+
+      ready: function() {
+      },
+
+      /**
+       * The `task` method does no work at this time.
+       * 
+       * @method task
+       * @return {Object} Returns undefined.
+       * @param {String} dummy Serves no purpose today.
+       */
+      task: function(dummy) {
+      }
+
+    });
+
+  </script>
+
+</polymer-element>
