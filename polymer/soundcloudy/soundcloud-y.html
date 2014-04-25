@@ -1,0 +1,215 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="soundcloud-import.html">
+
+<!--
+Element providing a SoundCloud instant app.
+
+##### Example
+
+    <contained-view></contained-view>
+
+@class contained-view
+@blurb Element providing a SoundCloud instant application.
+@status alpha
+@url github.io
+-->
+<polymer-element name="soundcloud-y" attributes="notitle">
+
+  <template>
+
+<link href="soundcloud-y.css" rel="stylesheet" />
+<div class="load-complete">
+<input id="page-toggle-chk" type="checkbox" style="display: none;"/>
+<input id="window-toggle-chk" type="checkbox" style="display: none;"/>
+<label for="window-toggle-chk" class="start-radio-button">Start player</label>
+<div class="window load-transition">
+  <div class="top-bar load-transition">
+    <label for="page-toggle-chk" class="left-action">
+      <div class="line line-1"></div>
+      <div class="line line-2"></div>
+      <div class="line line-3"></div>
+    </label>
+    <div class="mid-text">
+      <div class="title page-front-title">SoundCloudy</div>
+      <div class="title page-saved-stations-title">Categories</div>
+    </div>
+    <label for="window-toggle-chk" class="right-action">
+      <div class="line line-1"></div>
+      <div class="line line-2"></div>
+      <div class="line line-3"></div>
+    </label>
+  </div>
+  <div class="page page-front">
+    <div class="cover load-transition load-transition-delay-1">
+
+      <div class="player">
+        <div class="field" id="searchform">
+          <input type="text" id="searchterm" placeholder="enter a genre to begin" />
+          <button type="button" id="search" on-click="{{searchItem}}">Find</button>
+        </div>
+
+          <div id="error"></div>
+          <div id="trackname">{{trackname}}</div>
+          <iframe id="widget" width="100%"></iframe>
+          <div class="favstar {{ {active: favoritesCount, hidden: favoritesCount == ''} | tokenList }}">
+                Favorites: <div class="highlight">{{favoritesCount}}</div>
+                <!--Plays: <div class="highlight">{{playbackCount}}</div>-->
+          </div>
+
+
+      </div>
+      <div class="glow load-transition load-transition-delay-2"></div>   
+
+    </div>
+    
+    <div class="volume-bar load-transition load-transition-delay-2">
+
+      <input type="image" class="float-right" src="arrow-forward.png" on-click="{{next}}" style="height:50px"/>
+      <input type="image" src="volume-up.png" on-click="{{volumeUp}}" style="height:60px"/>
+      <input type="image" src="volume-down.png" on-click="{{volumeDown}}" style="height:60px"/>
+    </div>
+  </div>
+  <div class="page page-saved-stations">
+    <menu class="station-list">
+      <ul>
+        <li><a class="link">Alternative</a></li>
+        <li class="active"><a class="link">Electro
+            <div class="bar-bouncer">
+              <div class="bar bar1"></div>
+              <div class="bar bar2"></div>
+              <div class="bar bar3"></div>
+            </div></a></li>
+        <li><a class="link">Dubstep</a></li>
+        <li><a class="link">Synthpop</a></li>
+        <li><a class="link">Disco</a></li>
+        <li><a class="link">House</a></li>
+      </ul>
+    </menu>
+  </div>
+</div>
+</div>
+  </template>
+
+  <script>
+    Polymer({
+      favoritesCount: '',
+      trackname: 'Daft Punk - Giorgio by Moroder (2013)',
+      defaultTrack: 'giorgiomoroder/daft-punk-giorgio-by-moroder',
+      clientId: '7182630dc6a6fc8aa606657648545826',    
+      ready: function() {
+        // SC api key
+        var client_id = this.clientId;
+
+        // store all tracks after a search query
+        var all_tracks = [];
+
+        // timer to search only after a while
+        var timer;
+
+        // iframe that stores the SC player
+        var iframe = this.$.widget;
+
+        // the SC Widget object
+        var widget;
+
+        // initialize the soundcloud app
+        SC.initialize({
+            client_id: client_id
+        });
+
+        // on page load, start with a single song
+        iframe.src = "http://w.soundcloud.com/player/?url=https://soundcloud.com/" + this.defaultTrack;
+        this.widget = SC.Widget(iframe);
+
+        this.widget.bind(SC.Widget.Events.READY, function() {
+          // when the track finishes, play the next one
+          this.widget.bind(SC.Widget.Events.FINISH, function(e) {
+              next();
+            });
+        }.bind(this));
+
+      },
+
+      searchItem: function(){
+        var q = this.$.searchterm.value;
+        this.instaSearch(q);
+      },
+      instaSearch: function(q){
+          SC.get('/tracks', { q: q, limit: 10 }, function(tracks) {
+              if (tracks.length == 0) {
+                  this.cleanUpSpace();
+                  this.$.error.innerHTML = 'No tracks found';
+              } else {
+                  all_tracks = tracks;
+                  var track = all_tracks.splice(0, 1)[0];
+                  this.playTrack(track);
+              }
+          }.bind(this));      
+      },
+      toggle: function(){
+        this.widget.toggle();
+      },
+      next: function() {
+          if (all_tracks.length != 0) {
+              var track = all_tracks.splice(0, 1)[0];
+              this.playTrack(track);
+          } else {
+              this.cleanUpSpace();
+              this.$.error.innerHTML = 'No more songs. Try searching.';
+              this.$.searchterm.focus();
+          }
+      },
+
+      // takes a track from SoundCloud and plays it.
+      playTrack: function(track) {
+          //ga('send', 'event', 'play', 'songPla');
+          this.cleanUpSpace();
+          // console.log(track.uri);
+          // update the iframe source
+          console.log(this.widget);
+          this.widget.load(track.uri, {
+              auto_play: true,
+              buying: false,
+              sharing: false,
+              show_playcount: false,
+              show_comments: false
+          });
+
+          // set the title of the track
+          this.trackname = track.title;
+          this.playbackCount = track.playback_count;
+          this.favoritesCount = track.favoritings_count;
+          this.duration = parseInt(track.duration / 1000 / 60) + ":" + (track.duration / 1000 % 60, 10);
+      },
+
+        cleanUpSpace: function() {
+          this.$.widget.innerHTML = "";
+          this.$.error.innerHTML = ""; 
+        },
+
+        volumeUp: function(){
+          this.widget.getVolume(function(volume) {
+              this.widget.setVolume(Math.min(100, volume + 5));
+          }.bind(this));
+        },
+
+        volumeDown: function(){
+          this.widget.getVolume(function(volume) {
+              this.widget.setVolume(Math.max(0, volume - 5));
+          }.bind(this));
+        },
+      /**
+       * The `task` method does no work at this time.
+       * 
+       * @method task
+       * @return {Object} Returns undefined.
+       * @param {String} dummy Serves no purpose today.
+       */
+      task: function(dummy) {
+      }
+
+    });
+
+  </script>
+
+</polymer-element>
