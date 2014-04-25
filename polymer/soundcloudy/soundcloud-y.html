@@ -52,7 +52,7 @@ Element providing a SoundCloud instant app.
 
           <div id="categoryselector" class="tile-container">
             <template repeat="{{category in categories}}">
-              <a class="tile" on-click="{{searchCategory}}">
+              <a class="tile {{category}}" on-click="{{searchCategory}}" >
                 <span class="title">{{category}}</span>
               </a>
               </template>
@@ -61,10 +61,12 @@ Element providing a SoundCloud instant app.
           <div id="error"></div>
           <div id="trackname">{{trackname}}</div>
           <iframe id="widget" width="100%"></iframe>
+         
           <div class="favstar {{ {active: favoritesCount, hidden: favoritesCount == ''} | tokenList }}">
                 Favorites: <div class="highlight">{{favoritesCount}}</div>
                 Plays: <div class="highlight">{{playbackCount}}</div>
           </div>
+
 
 
       </div>
@@ -155,7 +157,11 @@ Element providing a SoundCloud instant app.
       searchItem: function(){
         var q = this.$.searchterm.value;
         this.instaSearch(q);
+        this.showPlayer();
         this.hideCategoryTiles();
+      },
+      showPlayer: function(){
+        this.$.widget.style.display = 'block';
       },
       hideCategoryTiles: function(){
         this.$.categoryselector.style.display = 'none';

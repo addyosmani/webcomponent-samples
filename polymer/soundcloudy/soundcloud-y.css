@@ -971,7 +971,10 @@ position: fixed;
   color:white;
   border:none;
 }
-.field>button:hover {}
+
+.field>button:hover {
+  background: #63375D;
+}
 
 #trackname {
 clear: both;
@@ -988,6 +991,7 @@ padding-bottom: 20px;
   font-size: 20px;
   text-align:center;
   color: white;
+  margin-top:30px;
 }
 
 .favstar .highlight {
@@ -1012,7 +1016,7 @@ padding-bottom: 20px;
 }
 
 .tile:hover {
-  background: #63375D;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .tile-container {
@@ -1026,6 +1030,48 @@ padding-bottom: 20px;
   outline: 7px solid rgba(255,255,255,0);
   transition: outline .5s;
     position: relative; 
+}
+
+.tile .title {
+  background: rgba(0, 0, 0, 0.7);
+  display: block;
+}
+
+.Alternative {
+  background-image: url('tiles/alternative.jpeg');
+}
+
+.Dance {
+  background-image: url('tiles/dance.jpeg');
+}
+
+.Disco {
+  background-image: url('tiles/discoball.jpeg');
+}
+
+.Dubstep {
+  background-image: url('tiles/dubstep.jpeg');
+}
+
+.Electro {
+  background-image: url('tiles/electro.jpeg');
+}
+
+.House {
+  background-image: url('tiles/house.jpeg');
+}
+
+.Pop {
+  background-image: url('tiles/pop.jpeg');
+}
+
+.Synthpop {
+  background-image: url('tiles/synthpop.jpeg');
+}
+
+
+#widget {
+  display:none;
 }
 
 
