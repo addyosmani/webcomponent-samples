@@ -1,0 +1,20 @@
+{
+  "name": "core-toolbar",
+  "private": true,
+  "dependencies": {
+    "core-theme-aware": "Polymer/core-theme-aware#0.2.3",
+    "core-layout": "Polymer/core-layout#0.2.3"
+  },
+  "version": "0.2.3",
+  "homepage": "https://github.com/Polymer/core-toolbar",
+  "_release": "0.2.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.2.3",
+    "commit": "0a175a6744a7708085368f649e2e913eace3b10f"
+  },
+  "_source": "git://github.com/Polymer/core-toolbar.git",
+  "_target": "~0.2.3",
+  "_originalSource": "Polymer/core-toolbar",
+  "_direct": true
+}

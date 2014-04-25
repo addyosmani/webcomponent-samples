@@ -23,7 +23,7 @@ input[type="range"] {
   margin: auto;
   width: 240px;
   padding: 15px 0;
-  background: rgba(0, 0, 0, 0.1);
+  background: #382235;
   cursor: pointer;
   display: block;
   text-align: center;
@@ -973,7 +973,9 @@ position: fixed;
 }
 .field>button:hover {}
 
-#trackname { 
+#trackname {
+clear: both;
+display: block;
 font-size: 21px;
 color: white;
 text-align: center;
@@ -995,7 +997,35 @@ padding-bottom: 20px;
 .hidden {
   display:none;
 }
-.float-right {
-  float:right;
-  margin-right: 5px;
+
+.tile {
+  width: 47%;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  float: left;
+  color: white;
+  font-weight: 300;
+  display: block;
+  margin: 5px;
+  background: #382235;
 }
+
+.tile:hover {
+  background: #A38AA0;
+}
+
+.tile-container {
+  margin: 0 auto;
+  width: 100%;
+  display: block;
+  clear: both;
+}
+
+.tile {
+  outline: 7px solid rgba(255,255,255,0);
+  transition: outline .5s;
+    position: relative; 
+}
+
+

@@ -1,0 +1,19 @@
+{
+  "name": "core-iconset",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#0.2.3",
+    "core-meta": "Polymer/core-meta#0.2.3"
+  },
+  "version": "0.2.3",
+  "homepage": "https://github.com/Polymer/core-iconset",
+  "_release": "0.2.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.2.3",
+    "commit": "3c6b27e5f6226ba350fb9c2bbd855d660c40c1a2"
+  },
+  "_source": "git://github.com/Polymer/core-iconset.git",
+  "_target": "0.2.3",
+  "_originalSource": "Polymer/core-iconset"
+}
