@@ -63,7 +63,7 @@ Element providing a SoundCloud instant app.
           <iframe id="widget" width="100%"></iframe>
           <div class="favstar {{ {active: favoritesCount, hidden: favoritesCount == ''} | tokenList }}">
                 Favorites: <div class="highlight">{{favoritesCount}}</div>
-                <!--Plays: <div class="highlight">{{playbackCount}}</div>-->
+                Plays: <div class="highlight">{{playbackCount}}</div>
           </div>
 
 
@@ -155,10 +155,14 @@ Element providing a SoundCloud instant app.
       searchItem: function(){
         var q = this.$.searchterm.value;
         this.instaSearch(q);
+        this.hideCategoryTiles();
+      },
+      hideCategoryTiles: function(){
+        this.$.categoryselector.style.display = 'none';
       },
       searchCategory: function(e, detail, sender){
         var keyword = sender.innerText;
-        this.$.categoryselector.style.display = 'none';
+        this.hideCategoryTiles();
         this.$.searchterm.value = keyword;
         this.searchItem(keyword);
       },
