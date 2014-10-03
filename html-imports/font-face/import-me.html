@@ -1,0 +1,32 @@
+<!--
+Solve by having an import for your element containing the 
+stylesheet for your web fonts at the top here.
+-->
+<link rel="import" href="my-font.html">
+
+<template>
+	This is a web component using RobotoDraft.
+</template>
+<script>
+	(function() {
+
+		var ownerDocument = document.currentScript.ownerDocument;
+
+		var prototype = Object.create(HTMLElement.prototype, {
+			'createdCallback': {
+				'value': function() {
+					var template = ownerDocument.querySelector('template');
+					var clone = document.importNode(template.content, true);
+					var shadow = this.createShadowRoot();
+					shadow.appendChild(clone);
+				}
+			}
+		});
+
+		document.registerElement('example-component', {
+			'prototype': prototype,
+			'extends': 'p'
+		});
+
+	}());
+</script>
